@@ -546,6 +546,11 @@ contentDb.count({}, (err, count) => {
 });
 
 // Start the server
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+// Use process.env.PORT provided by hosting environment, or default to 3000
+const HOST = '0.0.0.0'; // Bind to 0.0.0.0 for external access
+const LISTEN_PORT = process.env.PORT || PORT; // Use PORT from env or local default
+
+app.listen(LISTEN_PORT, HOST, () => {
+    console.log(`Server running on http://${HOST}:${LISTEN_PORT}`);
+    console.log(`Access your app at the external URL provided by Replit (e.g., https://your-repl-name.your-username.replit.dev)`);
 });
