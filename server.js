@@ -4,7 +4,9 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
+// Use process.env.PORT provided by hosting environment, or default to 5000
+const PORT = process.env.PORT || 5000;
+const HOST = '0.0.0.0'; // Bind to 0.0.0.0 for external access
 
 // Initialize NeDB database
 // It will create 'data/content.db' if it doesn't exist
@@ -391,7 +393,8 @@ contentDb.count({}, (err, count) => {
                         <li><strong>Billing System:</strong> The core system for rating, charging, and invoicing.</li>
                         <li><strong>Mediation System:
                         </strong> Collects usage data from the network and transforms it for the billing system.</li>
-                        <li><strong>Revenue Management System:</strong> Ensures all services are correctly billed.</li>
+                        <li><strong>Revenue Management System:
+                        </strong> Ensures all services are correctly billed.</li>
                     </ul>
                     <p class="example-box"><strong>Example (Sarah):</strong> At the end of the month (August), the Billing System receives usage data for Sarah's 5G plan from the Mediation system.
                         <ul>
@@ -408,7 +411,8 @@ contentDb.count({}, (err, count) => {
                     <h4>Key Processes:</h4>
                     <ul>
                         <li><strong>Payment Processing:</strong> Receiving and recording payments (credit card, bank transfer, direct debit).</li>
-                        <li><strong>Dunning & Collections:</strong> Managing overdue accounts (reminders, suspensions, legal action).</li>
+                        <li><strong>Dunning & Collections:
+                        </strong> Managing overdue accounts (reminders, suspensions, legal action).</li>
                         <li><strong>Dispute Management:</strong> Handling customer queries regarding bills.</li>
                     </ul>
                     <h4>Key Attributes of a Payment/Collection Event:</h4>
@@ -425,7 +429,8 @@ contentDb.count({}, (err, count) => {
                         <li><strong>Payment Gateway:</strong> Processes online card payments.</li>
                         <li><strong>Collections System:</strong> Manages overdue accounts.</li>
                         <li><strong>General Ledger (in Financials/ERP):</strong> Records all revenue.</li>
-                        <li><strong>Customer Self-Service Portal:</strong> Allows customers to view bills and make payments.</li>
+                        <li><strong>Customer Self-Service Portal:
+                        </strong> Allows customers to view bills and make payments.</li>
                     </ul>
                     <p class="example-box"><strong>Example (Sarah):</strong> Sarah logs into the customer portal and pays Invoice ID: INV-20250831-001 using her saved credit card.
                         <ul>
@@ -538,7 +543,7 @@ contentDb.count({}, (err, count) => {
             }
         ];
 
-        db.insert(initialContents, (err, newDocs) => {
+        contentDb.insert(initialContents, (err, newDocs) => {
             if (err) console.error("Error seeding initial content:", err);
             else console.log(`Seeded ${newDocs.length} initial content items.`);
         });
@@ -546,11 +551,7 @@ contentDb.count({}, (err, count) => {
 });
 
 // Start the server
-// Use process.env.PORT provided by hosting environment, or default to 3000
-const HOST = '0.0.0.0'; // Bind to 0.0.0.0 for external access
-const LISTEN_PORT = process.env.PORT || PORT; // Use PORT from env or local default
-
-app.listen(LISTEN_PORT, HOST, () => {
-    console.log(`Server running on http://${HOST}:${LISTEN_PORT}`);
+app.listen(PORT, HOST, () => {
+    console.log(`Server running on http://${HOST}:${PORT}`);
     console.log(`Access your app at the external URL provided by Replit (e.g., https://your-repl-name.your-username.replit.dev)`);
 });
