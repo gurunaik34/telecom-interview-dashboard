@@ -1,0 +1,26 @@
+{
+  "name": "telecom-interview-dashboard",
+  "version": "1.0.0",
+  "description": "A local HTML dashboard for telecom interview preparation with content management.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "postinstall": "mkdir -p data"
+  },
+  "keywords": [
+    "telecom",
+    "interview",
+    "BSS",
+    "OSS",
+    "5G",
+    "dashboard",
+    "content-management"
+  ],
+  "author": "Your Name Here",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2",
+    "nedb": "^1.8.0",
+    "markdown-it": "^14.1.0"
+  }
+}
